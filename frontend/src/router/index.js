@@ -22,7 +22,7 @@ const routes = [
     children: [
       {
         path: '',
-        redirect: '/pc/file'
+        redirect: '/pc/settlement'
       },
       {
         path: 'file',
@@ -35,6 +35,30 @@ const routes = [
       {
         path: 'user',
         component: () => import('@/views/pc/User.vue')
+      },
+      {
+        path: 'settlement',
+        component: () => import('@/views/pc/Settlement.vue')
+      },
+      {
+        path: 'dispute',
+        component: () => import('@/views/pc/DisputeList.vue')
+      },
+      {
+        path: 'dispute/:id',
+        component: () => import('@/views/pc/DisputeDetail.vue')
+      },
+      {
+        path: 'arbitration-list',
+        component: () => import('@/views/pc/ArbitrationList.vue')
+      },
+      {
+        path: 'arbitration/:id',
+        component: () => import('@/views/pc/Arbitration.vue')
+      },
+      {
+        path: 'payment',
+        component: () => import('@/views/pc/Payment.vue')
       }
     ]
   },
