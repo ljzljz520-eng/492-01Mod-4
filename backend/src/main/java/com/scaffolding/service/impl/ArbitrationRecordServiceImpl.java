@@ -87,12 +87,14 @@ public class ArbitrationRecordServiceImpl extends ServiceImpl<ArbitrationRecordM
         if (settlement != null) {
             if ("approved".equals(arbitrationResult) || "partial".equals(arbitrationResult)) {
                 settlement.setActualHours(approvedHours);
+                settlement.setBaseAmount(approvedHours.multiply(settlement.getUnitPrice()));
                 settlement.setTotalAmount(approvedAmount);
                 settlement.setStatus("confirmed");
                 settlement.setRemark("仲裁" + ("approved".equals(arbitrationResult) ? "通过" : "部分支持") + "，原金额：" + dispute.getOriginalAmount() + "，争议原因：" + dispute.getDisputeReason());
             } else {
-                settlement.setStatus("confirmed");
-                settlement.setRemark("仲裁驳回，按原始金额结算，争议原因：" + dispute.getDisputeReason());
+                settlement.setStatus("pending");
+                settlement.setRemark("仲裁驳回，需重新确认，争议原因：" + dispute.getDisputeReason());
+                settlement.setDisputeId(null);
             }
             settlement.setUpdateTime(LocalDateTime.now());
             dailySettlementMapper.updateById(settlement);

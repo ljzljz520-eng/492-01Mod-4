@@ -25,6 +25,9 @@ RUN mvn -s /root/.m2/settings.xml package -DskipTests -B
 # ==================== 运行阶段 ====================
 FROM amazoncorretto:17-alpine
 
+# 安装 curl 用于健康检查
+RUN apk add --no-cache curl
+
 # 设置工作目录
 WORKDIR /app
 
